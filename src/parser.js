@@ -2,7 +2,10 @@ import { parse, ParserError } from "@solidity-parser/parser";
 import fs from "fs";
 
 const file_content = fs
-  .readFileSync("./safe_remote_purchase.sol", { encoding: "utf8", flag: "r" })
+  .readFileSync("./sample_codes/safe_remote_purchase.sol", {
+    encoding: "utf8",
+    flag: "r",
+  })
   .toString();
 
 // console.log(file_content);
