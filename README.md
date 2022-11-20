@@ -2,7 +2,7 @@
 Static Analysis Tool for Solidity Codebases
 
 In order to run the project:
-npm install\n
+npm install<br/>
 node main.js
 
 Quick guide:
