@@ -1,4 +1,4 @@
-# bitirme
+# Graduation Project
 Static Analysis Tool for Solidity Codebases
 
 In order to run the project:
