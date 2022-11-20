@@ -11,45 +11,34 @@ function turnFileToString(file_path) {
 // This function generates a report of the given file in the given file path
 export default function GenerateReport(file_path) {
   const file_string = turnFileToString(file_path);
-  const codeReport = {};
+  const codeReport = [];
   try {
     const ast = parse(file_string, { loc: true, range: true });
-    // const codeLength = ast.loc.end.line;
-    codeReport.codeLength = ast.loc.end.line;
+    codeReport.push({
+      name: "Code Length",
+      value: ast.loc.end.line,
+      visibility: "",
+    });
     for (let index = 0; index < ast.children.length; index++) {
       let currentChild = ast.children[index];
       if (currentChild.type === "PragmaDirective") {
-        codeReport.PragmaDirective = currentChild.value;
+        codeReport.push({
+          name: "Pragma Directive",
+          value: currentChild.value,
+          visibility: "",
+        });
       }
       if (currentChild.type === "ContractDefinition") {
-        const ASTcounts = {};
-        const FunctionTypeCounts = {};
         for (let i = 0; i < currentChild.subNodes.length; i++) {
           const currentSubNode = currentChild.subNodes[i];
-          if (currentSubNode.type in ASTcounts) {
-            ASTcounts[currentSubNode.type] += 1;
-          } else {
-            ASTcounts[currentSubNode.type] = 1;
-          }
-          if (currentSubNode.type === "FunctionDefinition") {
-            if (currentSubNode.visibility in FunctionTypeCounts) {
-              FunctionTypeCounts[currentSubNode.visibility] += 1;
-            } else {
-              FunctionTypeCounts[currentSubNode.visibility] = 1;
-            }
-          }
+          codeReport.push({
+            name: currentSubNode.type,
+            value: "",
+            visibility: currentSubNode.visibility,
+          });
         }
-        codeReport.FunctionTypeCounts = FunctionTypeCounts;
-        codeReport.ASTcounts = ASTcounts;
       }
     }
-    console.log(`The pragma directive of the code is ${codeReport.PragmaDirective}
-  The length of the code is ${codeReport.codeLength} lines.
-  AST types and counts found in the code:`);
-    console.log(codeReport.ASTcounts);
-    console.log(`Function types that are found in the code:`);
-    console.log(codeReport.FunctionTypeCounts);
-    console.log("--------------------------------------------------");
     console.log(codeReport);
     return codeReport;
   } catch (e) {
