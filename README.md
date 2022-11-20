@@ -1,7 +1,7 @@
 # Graduation Project
 Static Analysis Tool for Solidity Codebases
 
-In order to run the project:
+In order to run the project:<br/>
 npm install<br/>
 node main.js
 
