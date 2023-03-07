@@ -1,7 +1,11 @@
 {
   "dependencies": {
     "@solidity-parser/parser": "^0.14.3",
+    "exceljs": "^4.3.0",
+    "solc": "^0.8.19",
+    "solidity-metrics": "^0.0.5",
+    "solidity-parser-antlr": "^0.4.11",
     "xlsx": "^0.18.5"
   },
-  "type": "module"
+  "type": "commonjs"
 }

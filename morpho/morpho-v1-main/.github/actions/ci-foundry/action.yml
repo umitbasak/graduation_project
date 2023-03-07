@@ -1,0 +1,89 @@
+name: Foundry tests
+description: Given a protocol and a network, compiles the contracts, checks for their size & runs the full forge test suite
+
+inputs:
+  protocol:
+    description: The protocol against which to run the forge test suite.
+    required: true
+  network:
+    description: The network against which to run the forge test suite.
+    required: true
+  alchemyKey:
+    description: The Alchemy key giving access to a private RPC.
+    required: true
+  codecovToken:
+    description: The Codecov token used to upload coverage report.
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        cache: yarn
+
+    - name: Install lcov
+      if: ${{ inputs.codecovToken != '' }}
+      run: sudo apt-get install -y lcov
+      shell: bash
+
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+      shell: bash
+
+    - name: Install Foundry
+      uses: onbjerg/foundry-toolchain@v1
+      with:
+        version: nightly
+
+    - name: Foundry fork cache
+      uses: actions/cache@v3
+      with:
+        path: ~/.foundry/cache
+        key: foundry-${{ hashFiles('Makefile', 'foundry.toml') }} # where fork block numbers & RPC are stored
+
+    - name: Check contracts sizes
+      run: make contracts
+      shell: bash
+      env:
+        PROTOCOL: ${{ inputs.protocol }}
+        NETWORK: ${{ inputs.network }}
+
+    - name: Foundry compilation cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          cache
+          out
+        key: ${{ github.base_ref || github.ref_name }}-foundry-${{ inputs.protocol }}-${{ inputs.network }} # always keep compiled contracts from base branch
+
+    - name: Run tests
+      run: make ci
+      shell: bash
+      env:
+        PROTOCOL: ${{ inputs.protocol }}
+        NETWORK: ${{ inputs.network }}
+        ALCHEMY_KEY: ${{ inputs.alchemyKey }}
+
+    - name: Generate lcov coverage report
+      if: ${{ inputs.codecovToken != '' }}
+      run: make coverage
+      shell: bash
+      env:
+        PROTOCOL: ${{ inputs.protocol }}
+        NETWORK: ${{ inputs.network }}
+        ALCHEMY_KEY: ${{ inputs.alchemyKey }}
+
+    - name: Check coverage threshold
+      if: ${{ inputs.codecovToken != '' }}
+      run: npx lcov-total lcov.info --gte=90.3
+      shell: bash
+
+    - name: Upload coverage to Codecov
+      if: ${{ inputs.codecovToken != '' }}
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ inputs.codecovToken }}
+        name: morpho-${{ inputs.protocol }}-${{ inputs.network }}
+        files: lcov.info

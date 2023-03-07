@@ -1,0 +1,37 @@
+name: Foundry tests (Morpho-Compound)
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    paths:
+      - "lib/**"
+      - "config/compound/**"
+      - "src/common/**"
+      - "src/compound/**"
+      - "test/common/**"
+      - "test/compound/**"
+      - "*.lock"
+      - "Makefile"
+      - "foundry.toml"
+      - "remappings.txt"
+      - ".github/actions/ci-foundry/*"
+      - ".github/workflows/ci-foundry-compound.yml"
+
+jobs:
+  morpho-compound-eth-mainnet:
+    name: eth-mainnet
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - uses: ./.github/actions/ci-foundry
+        with:
+          protocol: compound
+          network: eth-mainnet
+          alchemyKey: ${{ secrets.ALCHEMY_KEY }}
+          codecovToken: ${{ secrets.CODECOV_TOKEN }}

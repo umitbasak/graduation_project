@@ -1,0 +1,38 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+*.html
+
+# production
+/build
+/out
+
+# hardhat
+/artifacts
+/cache
+/coverage.json
+test/contracts/flattened
+
+# misc
+.DS_Store
+.env*
+!.env.example
+*.ansi
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+#vscode
+/.vscode
+
+# traces
+*.ansi
+*.html
+lcov.*
