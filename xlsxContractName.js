@@ -42,28 +42,29 @@ function countStats(filePath) {
             numStateVariables += subNode.variables.length;
           }
         });
-      } else if (node.type === "ImportDirective") {
-        const importedFile = node.path;
-        if (importedFile.startsWith("./") || importedFile.startsWith("../")) {
-          numInternalImports++;
-        } else {
-          numExternalImports++;
-        }
+        xlsxData.push([
+          filePath,
+          contractName,
+          numInternalImports,
+          numExternalImports,
+          numFunctions,
+          numStateVariables,
+        ]);
       }
+      //  else if (node.type === "ImportDirective") {
+      //   const importedFile = node.path;
+      //   if (importedFile.startsWith("./") || importedFile.startsWith("../")) {
+      //     numInternalImports++;
+      //   } else {
+      //     numExternalImports++;
+      //   }
+      // }
     });
-    xlsxData.push([
-      filePath,
-      contractName,
-      numInternalImports,
-      numExternalImports,
-      numFunctions,
-      numStateVariables,
-    ]);
   }
 }
 countStats(directory);
 
-console.log(xlsxData);
+// console.log(xlsxData);
 
 let workbook = xlsx.utils.book_new();
 let sheet = xlsx.utils.aoa_to_sheet(xlsxData);
