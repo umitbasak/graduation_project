@@ -14,6 +14,7 @@ let xlsxData = [
     "External Imports",
     "Functions",
     "State Variables",
+    "Number of lines",
   ],
 ];
 
@@ -30,6 +31,7 @@ function countStats(filePath) {
     let numExternalImports = 0;
     let numFunctions = 0;
     let numStateVariables = 0;
+    let numLines = 0;
     ast.children.forEach((node) => {
       if (node.type === "ContractDefinition") {
         contractName = node.name;
@@ -42,6 +44,9 @@ function countStats(filePath) {
             numStateVariables += subNode.variables.length;
           }
         });
+
+        numLines = node.loc.end.line - node.loc.start.line + 1;
+
         xlsxData.push([
           filePath,
           contractName,
@@ -49,6 +54,7 @@ function countStats(filePath) {
           numExternalImports,
           numFunctions,
           numStateVariables,
+          numLines,
         ]);
       }
       //  else if (node.type === "ImportDirective") {
