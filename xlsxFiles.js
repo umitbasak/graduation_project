@@ -73,4 +73,4 @@ xlsxData.push([
 let workbook = xlsx.utils.book_new();
 let sheet = xlsx.utils.aoa_to_sheet(xlsxData);
 xlsx.utils.book_append_sheet(workbook, sheet, "Contracts");
-xlsx.writeFile(workbook, "xlsxFiles.xlsx");
+xlsx.writeFile(workbook, "./sheets/xlsxFiles.xlsx");

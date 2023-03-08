@@ -1,10 +1,16 @@
 # Graduation Project
+
 Static Analysis Tool for Solidity Codebases
 
 In order to run the project:<br/>
 npm install<br/>
-node main.js
+
+For extracting the metrics for each individual file:
+node xlsxFiles.js
+
+For extracting the metrics for each individual contract:
+node xlsxContracts.js
 
 Quick guide:
-main.js parses the files inside the "src/sample_codes/" directory and generates a report from them, after that it exports these report to spreadsheets which can
-be located in "src/export/" directory.
+JS files parse the solidity files inside the "morpho" directory and generates a report from them, after that it exports these report to spreadsheets which can
+be located in "./sheets/" directory.
