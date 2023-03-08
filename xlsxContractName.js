@@ -15,6 +15,11 @@ let xlsxData = [
     "Functions",
     "State Variables",
     "Number of lines",
+    "Number of structs",
+    "Number of using-for",
+    "Number of custom error definitions",
+    "Number of events",
+    "Number of inherited classes",
   ],
 ];
 
@@ -32,9 +37,20 @@ function countStats(filePath) {
     let numFunctions = 0;
     let numStateVariables = 0;
     let numLines = 0;
+    let numStructs = 0;
+    let numUsingFor = 0;
+    let numCustomErrors = 0;
+    let numEventDefinitions = 0;
+    let numInheritance = 0;
     ast.children.forEach((node) => {
       if (node.type === "ContractDefinition") {
         contractName = node.name;
+
+        node.baseContracts.forEach((baseContract) => {
+          if (baseContract.type === "InheritanceSpecifier") {
+            numInheritance++;
+          }
+        });
 
         node.subNodes.forEach((subNode) => {
           //   console.log(subNode.type);
@@ -42,6 +58,14 @@ function countStats(filePath) {
             numFunctions++;
           } else if (subNode.type === "StateVariableDeclaration") {
             numStateVariables += subNode.variables.length;
+          } else if (subNode.type === "StructDefinition") {
+            numStructs++;
+          } else if (subNode.type === "UsingForDeclaration") {
+            numUsingFor++;
+          } else if (subNode.type === "CustomErrorDefinition") {
+            numCustomErrors++;
+          } else if (subNode.type === "EventDefinition") {
+            numEventDefinitions++;
           }
         });
 
@@ -55,6 +79,11 @@ function countStats(filePath) {
           numFunctions,
           numStateVariables,
           numLines,
+          numStructs,
+          numUsingFor,
+          numCustomErrors,
+          numEventDefinitions,
+          numInheritance,
         ]);
       }
       //  else if (node.type === "ImportDirective") {
