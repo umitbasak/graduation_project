@@ -12,5 +12,5 @@ For extracting the metrics for each individual contract:
 node xlsxContracts.js
 
 Quick guide:
-JS files parse the solidity files inside the "morpho" directory and generates a report from them, after that it exports these report to spreadsheets which can
+JS files parse the solidity files inside the "morpho" directory and generate a report from them, after that they export these reports to spreadsheets which can
 be located in "./sheets/" directory.
