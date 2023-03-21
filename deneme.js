@@ -14,8 +14,9 @@ function countStats(filePath) {
   } else if (path.extname(filePath) === ".sol") {
     const source = fs.readFileSync(filePath, "utf8");
     const ast = parser.parse(source, { loc: true });
+    console.log(ast)
     ast.children.forEach((node) => {
-      console.log(node);
+      // console.log(node);
     });
   }
 }
