@@ -60,40 +60,40 @@ function processSolidityFile(filePath) {
 }
 
 function calculateCyclomaticComplexity(node) {
-    let count = 1;
+    let decisionPoints = 1;
 
     parser.visit(node, {
         IfStatement: (n) => {
-            count++;
+            decisionPoints++;
         },
         ForStatement: (n) => {
-            count++;
+            decisionPoints++;
         },
         WhileStatement: (n) => {
-            count++;
+            decisionPoints++;
         },
         DoWhileStatement: (n) => {
-            count++;
+            decisionPoints++;
         },
         BinaryOperation: (n) => {
             if (n.operator === "||" || n.operator === "&&") {
-                count++;
+                decisionPoints++;
             }
         },
         SwitchStatement: (n) => {
-            count += n.cases.length - 1;
+            decisionPoints += n.cases.length - 1;
         },
         InlineAssemblyStatement: (n) => {
-            count++;
+            decisionPoints++;
         },
         FunctionCall: (n) => {
             if (n.expression.name === 'require' || n.expression.name === 'assert') {
-                count++;
+                decisionPoints++;
             }
         },
     });
 
-    return count;
+    return decisionPoints;
 }
 
 function countFunctionCalls(node) {
