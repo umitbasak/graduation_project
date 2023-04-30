@@ -21,10 +21,10 @@ let totalNumLines = 0;
 let totalNumInternalImports = 0;
 let totalNumExternalImports = 0;
 
-function countStats(filePath) {
+function processDirectoryForFiles(filePath) {
   if (fs.statSync(filePath).isDirectory()) {
     fs.readdirSync(filePath).forEach((file) =>
-      countStats(path.join(filePath, file))
+      processDirectoryForFiles(path.join(filePath, file))
     );
   } else if (path.extname(filePath) === ".sol") {
     const source = fs.readFileSync(filePath, "utf8");
@@ -58,7 +58,7 @@ function countStats(filePath) {
     ]);
   }
 }
-countStats(directory);
+processDirectoryForFiles(directory);
 
 // console.log(xlsxData);
 
@@ -70,7 +70,15 @@ xlsxData.push([
   totalNumExternalImports,
 ]);
 
+function exportXlsxFilesData(){
+  processDirectoryForFiles(directory);
+  return xlsxData;
+}
+
 let workbook = xlsx.utils.book_new();
 let sheet = xlsx.utils.aoa_to_sheet(xlsxData);
 xlsx.utils.book_append_sheet(workbook, sheet, "Contracts");
 xlsx.writeFile(workbook, "./sheets/xlsxFiles.xlsx");
+
+module.exports = { exportXlsxFilesData };
+

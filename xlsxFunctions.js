@@ -23,10 +23,10 @@ const headerRow = [
 
 let xlsxData = [headerRow];
 
-function processDirectory(filePath) {
+function processDirectoryForFunctions(filePath) {
     if (fs.statSync(filePath).isDirectory()) {
         fs.readdirSync(filePath).forEach((file) =>
-            processDirectory(path.join(filePath, file))
+            processDirectoryForFunctions(path.join(filePath, file))
         );
     } else if (path.extname(filePath) === ".sol") {
         processSolidityFile(filePath);
@@ -155,9 +155,16 @@ function processFunctionDefinition(node, contractName, filePath, source) {
     ]);
 }
 
-processDirectory(directory);
+processDirectoryForFunctions(directory);
+
+function exportXlsxFunctionData(){
+    processDirectoryForFunctions(directory);
+    return xlsxData;
+}
 
 let workbook = xlsx.utils.book_new();
 let sheet = xlsx.utils.aoa_to_sheet(xlsxData);
 xlsx.utils.book_append_sheet(workbook, sheet, "Functions");
 xlsx.writeFile(workbook, "./sheets/xlsxFunctions.xlsx");
+
+module.exports = { exportXlsxFunctionData };
