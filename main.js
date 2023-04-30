@@ -6,4 +6,9 @@ const { exportXlsxContractsData } = require('./xlsxContracts');
 
 // console.log(exportXlsxFunctionData());
 // console.log(exportXlsxFilesData());
-console.log(exportXlsxContractsData());
+// console.log(exportXlsxContractsData());
+
+const functionMetrics = exportXlsxFunctionData();
+console.log(functionMetrics)
+const filesMetrics = exportXlsxFilesData();
+const contractsMetrics = exportXlsxContractsData();
