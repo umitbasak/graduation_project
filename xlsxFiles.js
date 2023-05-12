@@ -58,7 +58,7 @@ function processDirectoryForFiles(filePath) {
     ]);
   }
 }
-processDirectoryForFiles(directory);
+// processDirectoryForFiles(directory);
 
 // console.log(xlsxData);
 
@@ -70,15 +70,13 @@ xlsxData.push([
   totalNumExternalImports,
 ]);
 
-function exportXlsxFilesData(){
+function exportXlsxFilesData() {
   processDirectoryForFiles(directory);
+  let workbook = xlsx.utils.book_new();
+  let sheet = xlsx.utils.aoa_to_sheet(xlsxData);
+  xlsx.utils.book_append_sheet(workbook, sheet, "Contracts");
+  xlsx.writeFile(workbook, "./sheets/xlsxFiles.xlsx");
   return xlsxData;
 }
 
-let workbook = xlsx.utils.book_new();
-let sheet = xlsx.utils.aoa_to_sheet(xlsxData);
-xlsx.utils.book_append_sheet(workbook, sheet, "Contracts");
-xlsx.writeFile(workbook, "./sheets/xlsxFiles.xlsx");
-
 module.exports = { exportXlsxFilesData };
-
