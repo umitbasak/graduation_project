@@ -4,7 +4,7 @@ const parser = require("@solidity-parser/parser");
 const xlsx = require("xlsx");
 
 // Directory containing Solidity files
-const directory = "./morpho/morpho-v1-main/src";
+// const directory = "./morpho/morpho-v1-main/src";
 
 let xlsxData = [
   [
@@ -70,7 +70,7 @@ xlsxData.push([
   totalNumExternalImports,
 ]);
 
-function exportXlsxFilesData() {
+function exportXlsxFilesData(directory) {
   processDirectoryForFiles(directory);
   let workbook = xlsx.utils.book_new();
   let sheet = xlsx.utils.aoa_to_sheet(xlsxData);

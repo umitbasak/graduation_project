@@ -4,6 +4,8 @@ const { exportXlsxContractsData } = require("./xlsxContracts");
 const { exportXlsxCouplingsData } = require("./xlsxCouplings");
 const xlsx = require("xlsx");
 
+const directory = "./morpho/morpho-v1-main/src";
+
 function exportToXlsx(fileName, data) {
   let workbook = xlsx.utils.book_new();
   let sheet = xlsx.utils.aoa_to_sheet(data);
@@ -24,7 +26,7 @@ function findComplexity(contractName, avgComplexities) {
   return 0;
 }
 
-const functionMetrics = exportXlsxFunctionData();
+const functionMetrics = exportXlsxFunctionData(directory);
 // console.log(functionMetrics)
 
 const averageFunctionComplexityOnContracts = [
@@ -57,7 +59,7 @@ let avgComplexities = Object.keys(contractComplexities).map((contractName) => {
 const couplingMetrics = exportXlsxCouplingsData();
 // console.log(couplingMetrics);
 
-let contractsMetrics = exportXlsxContractsData();
+let contractsMetrics = exportXlsxContractsData(directory);
 // console.log(contractsMetrics);
 
 contractsMetrics = contractsMetrics.map((row, i) => {
@@ -151,18 +153,30 @@ function calculateComplexityScores() {
     normalizedMetrics[metric] = normalize(values);
   }
 
+  let totalComplexityScore = 0;
+
   for (let i = 1; i < contractsMetrics.length; i++) {
     let complexityScore = 0;
 
     for (const metric in normalizedMetrics) {
       complexityScore += normalizedMetrics[metric][i - 1] * weights[metric];
+      totalComplexityScore +=
+        normalizedMetrics[metric][i - 1] * weights[metric];
     }
 
     contractsMetrics[i].push(complexityScore);
   }
+
+  // return the average contract complexity
+  let averageContractComplexity =
+    totalComplexityScore / contractsMetrics.length;
+  // console.log(averageContractComplexity);
+  return averageContractComplexity;
 }
 
-calculateComplexityScores();
+const averageContractComplexity = calculateComplexityScores();
+const weightedContractComplexity =
+  averageContractComplexity * contractsMetrics.length;
 
 function addTotalMetricsToLastRow(contractsMetrics) {
   let sums = Array(contractsMetrics[0].length).fill(0);
@@ -179,9 +193,43 @@ function addTotalMetricsToLastRow(contractsMetrics) {
   return contractsMetrics;
 }
 contractsMetrics = addTotalMetricsToLastRow(contractsMetrics);
-console.log(contractsMetrics);
+// console.log(contractsMetrics);
+
 exportToXlsx("finalContractMetrics", contractsMetrics);
 
 ///////////////////////
 
-const filesMetrics = exportXlsxFilesData();
+// const filesMetrics = exportXlsxFilesData(directory);
+
+const a = 2.4;
+const b = 1.05;
+
+const effort = a * weightedContractComplexity ** b;
+console.log(
+  "The estimated COCOMO effort is: " + effort.toFixed(2) + " person-month"
+);
+
+function estimateCodeQualityBasedOnFibonacci(complexity) {
+  if (0 <= complexity && complexity < 1 / 13) {
+    return "AA";
+  } else if (1 / 13 <= complexity && complexity < 2 / 13) {
+    return "BA";
+  } else if (2 / 13 <= complexity && complexity < 3 / 13) {
+    return "BB";
+  } else if (3 / 13 <= complexity && complexity < 5 / 13) {
+    return "CB";
+  } else if (5 / 13 <= complexity && complexity < 8 / 13) {
+    return "CC";
+  } else if (8 / 13 <= complexity && complexity < 13 / 13) {
+    return "DC";
+  } else if (13 / 13 <= complexity && complexity <= 1) {
+    return "DD";
+  } else {
+    return "Invalid complexity";
+  }
+}
+
+console.log(
+  "Estimated Code Quality Grade: " +
+    estimateCodeQualityBasedOnFibonacci(averageContractComplexity)
+);

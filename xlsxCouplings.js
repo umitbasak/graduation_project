@@ -121,11 +121,10 @@ function saveToXLSX(fileDependencies) {
   return worksheetData;
 }
 
-const fileDependencies = analyzeFiles(directory);
-printDependencies(fileDependencies);
-// saveToXLSX(fileDependencies);
-
 function exportXlsxCouplingsData() {
+  const fileDependencies = analyzeFiles(directory);
+  // printDependencies(fileDependencies);
+  // saveToXLSX(fileDependencies);
   const worksheetData = saveToXLSX(fileDependencies);
   return worksheetData;
 }

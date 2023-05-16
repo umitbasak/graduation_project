@@ -3,7 +3,7 @@ const path = require("path");
 const parser = require("@solidity-parser/parser");
 const xlsx = require("xlsx");
 
-const directory = "./morpho/morpho-v1-main/src";
+// const directory = "./morpho/morpho-v1-main/src";
 
 const headerRow = [
   "File Name",
@@ -213,7 +213,7 @@ function processFunctionDefinition(node, contractName, filePath, source) {
 
 // processDirectoryForFunctions(directory);
 
-function exportXlsxFunctionData() {
+function exportXlsxFunctionData(directory) {
   processDirectoryForFunctions(directory);
   calculateComplexityScores();
   let workbook = xlsx.utils.book_new();

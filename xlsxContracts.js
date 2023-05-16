@@ -3,7 +3,7 @@ const path = require("path");
 const parser = require("@solidity-parser/parser");
 const xlsx = require("xlsx");
 
-const directory = "./morpho/morpho-v1-main/src";
+// const directory = "./morpho/morpho-v1-main/src";
 
 const headerRow = [
   "File Name",
@@ -237,7 +237,7 @@ function processImportDirective(node) {
 
 // processDirectoryForContracts(directory);
 
-function exportXlsxContractsData() {
+function exportXlsxContractsData(directory) {
   processDirectoryForContracts(directory);
   let workbook = xlsx.utils.book_new();
   let sheet = xlsx.utils.aoa_to_sheet(xlsxData);
