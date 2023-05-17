@@ -219,6 +219,7 @@ const effort =
   (weightedContractComplexity * weightedContractComplexityWeight +
     KLOC * KLOCWeight) **
     b;
+
 console.log(
   "The estimated COCOMO effort is: " + effort.toFixed(2) + " person-month"
 );
@@ -231,19 +232,19 @@ console.log("The number of person required is " + Math.round(personRequired));
 
 function estimateCodeQualityBasedOnFibonacci(complexity) {
   if (0 <= complexity && complexity < 1 / 13) {
-    return "AA";
+    return "Great";
   } else if (1 / 13 <= complexity && complexity < 2 / 13) {
-    return "BA";
+    return "Good";
   } else if (2 / 13 <= complexity && complexity < 3 / 13) {
-    return "BB";
+    return "Average";
   } else if (3 / 13 <= complexity && complexity < 5 / 13) {
-    return "CB";
+    return "Moderate";
   } else if (5 / 13 <= complexity && complexity < 8 / 13) {
-    return "CC";
+    return "Complex";
   } else if (8 / 13 <= complexity && complexity < 13 / 13) {
-    return "DC";
+    return "Very Complex";
   } else if (13 / 13 <= complexity && complexity <= 1) {
-    return "DD";
+    return "Incredibly Complex";
   } else {
     return "Invalid complexity";
   }
