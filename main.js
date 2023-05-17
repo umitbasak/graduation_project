@@ -177,6 +177,7 @@ function calculateComplexityScores() {
 const averageContractComplexity = calculateComplexityScores();
 const weightedContractComplexity =
   averageContractComplexity * contractsMetrics.length;
+// console.log(weightedContractComplexity);
 
 function addTotalMetricsToLastRow(contractsMetrics) {
   let sums = Array(contractsMetrics[0].length).fill(0);
@@ -201,13 +202,21 @@ exportToXlsx("finalContractMetrics", contractsMetrics);
 
 // const filesMetrics = exportXlsxFilesData(directory);
 
-const a = 2.4;
-const b = 1.05;
+const a = 3.0;
+const b = 1.12;
+const c = 2.5;
+const d = 0.35;
 
 const effort = a * weightedContractComplexity ** b;
 console.log(
   "The estimated COCOMO effort is: " + effort.toFixed(2) + " person-month"
 );
+const time = c * effort ** d;
+console.log(
+  "The estimated time of development is: " + time.toFixed(2) + " months."
+);
+const personRequired = effort / time;
+console.log("The number of person required is " + Math.round(personRequired));
 
 function estimateCodeQualityBasedOnFibonacci(complexity) {
   if (0 <= complexity && complexity < 1 / 13) {
