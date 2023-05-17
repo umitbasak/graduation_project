@@ -4,8 +4,8 @@ const { exportXlsxContractsData } = require("./xlsxContracts");
 const { exportXlsxCouplingsData } = require("./xlsxCouplings");
 const xlsx = require("xlsx");
 
-// const directory = "./example_projects/morpho/morpho-v1-main/src";
-const directory = "./example_projects/uniswap/v3-core-main/contracts";
+const directory = "./example_projects/morpho/morpho-v1-main/src";
+// const directory = "./example_projects/uniswap/v3-core-main/contracts";
 
 function exportToXlsx(fileName, data) {
   let workbook = xlsx.utils.book_new();
@@ -116,32 +116,32 @@ function calculateComplexityScores() {
   };
 
   const weights = {
-    numInternalImports: 0.083,
-    numExternalImports: 0.083,
-    numFunctions: 0.083,
-    numStateVariables: 0.083,
+    numInternalImports: 0.0109,
+    numExternalImports: 0.0109,
+    numFunctions: 0.0109,
+    numStateVariables: 0.0109,
     numLines: 0.15,
-    numStructs: 0.083,
-    numUsingFor: 0.083,
-    numCustomErrorDefinition: 0.083,
-    numEvents: 0.083,
-    numInheritedClasses: 0.083,
-    numModifiers: 0.083,
-    numMappings: 0.083,
-    numArrays: 0.083,
-    numEnums: 0.083,
-    numPublicFunctions: 0.083,
-    numPrivateFunctions: 0.083,
-    numInternalFunctions: 0.083,
-    numExternalFunctions: 0.083,
-    numDefaultFunctions: 0.083,
-    numConstantStateVariables: 0.083,
+    numStructs: 0.0109,
+    numUsingFor: 0.0109,
+    numCustomErrorDefinition: 0.0109,
+    numEvents: 0.0109,
+    numInheritedClasses: 0.0109,
+    numModifiers: 0.0109,
+    numMappings: 0.0109,
+    numArrays: 0.0109,
+    numEnums: 0.0109,
+    numPublicFunctions: 0.0109,
+    numPrivateFunctions: 0.0109,
+    numInternalFunctions: 0.0109,
+    numExternalFunctions: 0.0109,
+    numDefaultFunctions: 0.0109,
+    numConstantStateVariables: 0.0109,
     cyclomaticComplexity: 0.25,
-    numFallbackFunctions: 0.083,
-    numReceiveFunctions: 0.083,
-    numFunctionCalls: 0.083,
+    numFallbackFunctions: 0.0109,
+    numReceiveFunctions: 0.0109,
+    numFunctionCalls: 0.0109,
     numDependencies: 0.1,
-    numDependentContracts: 0.083,
+    numDependentContracts: 0.0109,
     averageFunctionComplexity: 0.25,
   };
 
