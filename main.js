@@ -5,7 +5,8 @@ const { exportXlsxCouplingsData } = require("./xlsxCouplings");
 const xlsx = require("xlsx");
 
 // const directory = "./example_projects/morpho/morpho-v1-main/src";
-const directory = "./example_projects/uniswap/v3-core-main/contracts";
+// const directory = "./example_projects/uniswap/v3-core-main/contracts";
+const directory = process.argv[2];
 
 function exportToXlsx(fileName, data) {
   let workbook = xlsx.utils.book_new();
