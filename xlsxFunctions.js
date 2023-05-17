@@ -43,14 +43,14 @@ function calculateComplexityScores() {
   };
 
   const weights = {
-    numLines: 0.2,
+    numLines: 0.25,
     numIfElseStatements: 0.15,
     numLoops: 0.15,
-    numUncheckedBlocks: 0.1,
-    numInlineAssemblyBlocks: 0.1,
-    numEventsEmitted: 0.1,
+    numUncheckedBlocks: 0.05,
+    numInlineAssemblyBlocks: 0.05,
+    numEventsEmitted: 0.05,
     numComments: 0.05,
-    cyclomaticComplexity: 0.15,
+    cyclomaticComplexity: 0.25,
   };
 
   const normalizedMetrics = {};

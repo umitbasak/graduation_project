@@ -200,8 +200,6 @@ contractsMetrics = addTotalMetricsToLastRow(contractsMetrics);
 
 exportToXlsx("finalContractMetrics", contractsMetrics);
 
-///////////////////////
-
 // const filesMetrics = exportXlsxFilesData(directory);
 
 const KLOC = contractsMetrics.at(-1)[6] / 1000;
