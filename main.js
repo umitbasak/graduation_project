@@ -4,8 +4,8 @@ const { exportXlsxContractsData } = require("./xlsxContracts");
 const { exportXlsxCouplingsData } = require("./xlsxCouplings");
 const xlsx = require("xlsx");
 
-const directory = "./example_projects/morpho/morpho-v1-main/src";
-// const directory = "./example_projects/uniswap/v3-core-main/contracts";
+// const directory = "./example_projects/morpho/morpho-v1-main/src";
+const directory = "./example_projects/uniswap/v3-core-main/contracts";
 
 function exportToXlsx(fileName, data) {
   let workbook = xlsx.utils.book_new();
@@ -204,7 +204,8 @@ exportToXlsx("finalContractMetrics", contractsMetrics);
 // const filesMetrics = exportXlsxFilesData(directory);
 
 const KLOC = contractsMetrics.at(-1)[6] / 1000;
-// console.log(KLOC);
+// console.log("KLOC: " + KLOC);
+// console.log("Weighted Contract Complexity: " + weightedContractComplexity);
 
 const KLOCWeight = 0.5;
 const weightedContractComplexityWeight = 0.5;
