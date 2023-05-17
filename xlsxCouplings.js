@@ -3,7 +3,7 @@ const path = require("path");
 const parser = require("@solidity-parser/parser");
 const XLSX = require("xlsx");
 
-const directory = "./morpho/morpho-v1-main/src";
+// const directory = "./morpho/morpho-v1-main/src";
 
 function getImports(fileContent, filePath) {
   let imports = [];
@@ -121,7 +121,7 @@ function saveToXLSX(fileDependencies) {
   return worksheetData;
 }
 
-function exportXlsxCouplingsData() {
+function exportXlsxCouplingsData(directory) {
   const fileDependencies = analyzeFiles(directory);
   // printDependencies(fileDependencies);
   // saveToXLSX(fileDependencies);

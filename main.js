@@ -4,7 +4,8 @@ const { exportXlsxContractsData } = require("./xlsxContracts");
 const { exportXlsxCouplingsData } = require("./xlsxCouplings");
 const xlsx = require("xlsx");
 
-const directory = "./morpho/morpho-v1-main/src";
+// const directory = "./example_projects/morpho/morpho-v1-main/src";
+const directory = "./example_projects/uniswap/v3-core-main/contracts";
 
 function exportToXlsx(fileName, data) {
   let workbook = xlsx.utils.book_new();
@@ -56,7 +57,7 @@ let avgComplexities = Object.keys(contractComplexities).map((contractName) => {
 
 // console.log(avgComplexities);
 
-const couplingMetrics = exportXlsxCouplingsData();
+const couplingMetrics = exportXlsxCouplingsData(directory);
 // console.log(couplingMetrics);
 
 let contractsMetrics = exportXlsxContractsData(directory);
@@ -202,12 +203,22 @@ exportToXlsx("finalContractMetrics", contractsMetrics);
 
 // const filesMetrics = exportXlsxFilesData(directory);
 
+const KLOC = contractsMetrics.at(-1)[6] / 1000;
+// console.log(KLOC);
+
+const KLOCWeight = 0.5;
+const weightedContractComplexityWeight = 0.5;
+
 const a = 3.0;
 const b = 1.12;
 const c = 2.5;
 const d = 0.35;
 
-const effort = a * weightedContractComplexity ** b;
+const effort =
+  a *
+  (weightedContractComplexity * weightedContractComplexityWeight +
+    KLOC * KLOCWeight) **
+    b;
 console.log(
   "The estimated COCOMO effort is: " + effort.toFixed(2) + " person-month"
 );

@@ -26,6 +26,7 @@ let xlsxData = [headerRow];
 
 function normalize(values) {
   const maxValue = Math.max(...values);
+  if (maxValue == 0) return values;
   return values.map((value) => value / maxValue);
 }
 
