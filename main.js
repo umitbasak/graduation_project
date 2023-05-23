@@ -121,7 +121,7 @@ function calculateComplexityScores() {
     numExternalImports: 0.0109,
     numFunctions: 0.0109,
     numStateVariables: 0.0109,
-    numLines: 0.15,
+    numLines: 0.25,
     numStructs: 0.0109,
     numUsingFor: 0.0109,
     numCustomErrorDefinition: 0.0109,
@@ -137,7 +137,7 @@ function calculateComplexityScores() {
     numExternalFunctions: 0.0109,
     numDefaultFunctions: 0.0109,
     numConstantStateVariables: 0.0109,
-    cyclomaticComplexity: 0.25,
+    cyclomaticComplexity: 0.15,
     numFallbackFunctions: 0.0109,
     numReceiveFunctions: 0.0109,
     numFunctionCalls: 0.0109,
@@ -203,8 +203,8 @@ exportToXlsx("finalContractMetrics", contractsMetrics);
 // const filesMetrics = exportXlsxFilesData(directory);
 
 const KLOC = contractsMetrics.at(-1)[6] / 1000;
-// console.log("KLOC: " + KLOC);
-// console.log("Weighted Contract Complexity: " + weightedContractComplexity);
+console.log("KLOC: " + KLOC);
+console.log("Weighted Contract Complexity: " + weightedContractComplexity);
 
 const KLOCWeight = 0.5;
 const weightedContractComplexityWeight = 0.5;
@@ -241,10 +241,8 @@ function estimateCodeQualityBasedOnFibonacci(complexity) {
     return "Moderate";
   } else if (5 / 13 <= complexity && complexity < 8 / 13) {
     return "Complex";
-  } else if (8 / 13 <= complexity && complexity < 13 / 13) {
+  } else if (8 / 13 <= complexity && complexity <= 1) {
     return "Very Complex";
-  } else if (13 / 13 <= complexity && complexity <= 1) {
-    return "Incredibly Complex";
   } else {
     return "Invalid complexity";
   }

@@ -44,12 +44,12 @@ function calculateComplexityScores() {
 
   const weights = {
     numLines: 0.25,
-    numIfElseStatements: 0.15,
-    numLoops: 0.15,
+    numIfElseStatements: 0.1,
+    numLoops: 0.25,
     numUncheckedBlocks: 0.05,
     numInlineAssemblyBlocks: 0.05,
     numEventsEmitted: 0.05,
-    numComments: 0.05,
+    numComments: -0.05,
     cyclomaticComplexity: 0.25,
   };
 
