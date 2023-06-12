@@ -6,6 +6,14 @@ const xlsx = require("xlsx");
 
 // const directory = "./example_projects/morpho/morpho-v1-main/src";
 // const directory = "./example_projects/uniswap/v3-core-main/contracts";
+//"./example_projects/flash-loan-examples-main/contracts"
+// "./example_projects/openzeppelin-contracts/contracts"
+
+// node main.js "./example_projects/morpho/morpho-v1-main/src"
+// node main.js "./example_projects/uniswap/v3-core-main/contracts"
+// node main.js "./example_projects/openzeppelin-contracts/contracts"
+// node main.js "./example_projects/flash-loan-examples-main/contracts"
+
 const directory = process.argv[2];
 
 function exportToXlsx(fileName, data) {
@@ -204,6 +212,7 @@ exportToXlsx("finalContractMetrics", contractsMetrics);
 
 const KLOC = contractsMetrics.at(-1)[6] / 1000;
 console.log("KLOC: " + KLOC);
+console.log("Average Contract Complexity:" + averageContractComplexity);
 console.log("Weighted Contract Complexity: " + weightedContractComplexity);
 
 const KLOCWeight = 0.5;
